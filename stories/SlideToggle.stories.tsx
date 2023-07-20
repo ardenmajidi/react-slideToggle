@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import SlideToggle from '../src/SlideToggle';
+import {SlideToggle} from '../src/SlideToggle'
 
 const meta: Meta = {
     title: 'Slide Toggle',
