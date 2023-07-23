@@ -1,53 +1,34 @@
-# React image splitter
+# Smooth slide Toggle React
 
-React Image Splitter is a versatile and user-friendly React component that enables users to interactively split an image into two parts by dragging a separator divider. This component offers a straightforward and highly customizable solution to create engaging split-screen effects for a variety of applications. It is especially useful in scenarios where you want to showcase the results of changes made to the same background, such as before and after image comparisons, displaying different color schemes or finishes on the same pattern, and more.
+slide-toggle-react is a React component that provides a smooth slide animation for showing and hiding content. It allows you to easily create collapsible elements with customizable duration and easing functions.
 
-## Key Features
-
-- Draggable Separator: Users can easily drag the separator divider left or right to adjust the split position.
-
-- Customizable Starting Position: The component allows you to define a default starting position for the separator, providing a balanced split view by default.
-
-- Effortless Integration: With simple integration into your React applications, you can utilize this component to add a dynamic and interactive split-screen feature.
-
-- Ideal for Before and After Galleries: React Image Splitter is a perfect fit for showcasing "before and after" images, making it easy for users to compare changes side by side.
-
-- Flexible Applications: Use this component in various contexts, including presenting different design options, color schemes, or finishes on the same pattern.
 
 ## Installation
 
 You can install the package using npm:
 
 ```bash
-npm install react-image-splitter
+npm install  react-smooth-slide-toggle
 
 ```
-[Demo](https://react-image-splitter.netlify.app/)
+[Demo](https://ephemeral-dieffenbachia-d00dbf.netlify.app/)
 
 
 
 ## Usage
-Using React Image Splitter in your React application is a breeze. Import the component and provide the required source and content props to display the image and its split version, respectively.
 
-### Props
-The React Image Splitter component accepts the following props:
 
-source: The content to be displayed on one side of the splitter (e.g., the "before" image).
-content: The content to be displayed on the other side of the splitter (e.g., the "after" image).
-startPosition (optional): The initial position of the separator (a number between 0 and 100, where 0 represents fully left and 100 fully right). Default is set to 50.
-
-export default App;
 ```js
 import React from 'react';
-import ImageSplitter from 'react-image-splitter';
+import { SlideToggle } from 'react-smooth-slide-toggle';
 
 const App = () => {
   return (
-    <ImageSplitter
-      source={<img src="/path/to/image.jpg" alt="Source" />}
-      content={<img src="/path/to/image.jpg" alt="Content" />}
-      startPosition={70}
-    />
+    <SlideToggle trigger={<button>Toggle Content</button>}>
+      <div>
+        <p>This content will slide in and out when the button is clicked.</p>
+      </div>
+    </SlideToggle>
   );
 };
 
@@ -59,119 +40,70 @@ export default App;
 ## Props
 
 ```txt
-The React Image Splitter component accepts the following props:
+The SlideToggle component accepts the following props:
 
-source: The content to be displayed on one side of the splitter (e.g., the "before" image).
-content: The content to be displayed on the other side of the splitter (e.g., the "after" image).
-startPosition (optional): The initial position of the separator (a number between 0 and 100, where 0 represents fully left and 100 fully right). Default is set to 50.
+trigger: (required) React element that serves as the trigger for the slide animation. When this element is clicked, the content will slide in or out.
+
+easing: (optional) Specifies the easing function to be used for the slide animation. Available options are:
+
+  'easeLinear'  Default
+  'easeInQuad'
+  'easeOutQuad'
+  'easeInOutQuad'
+  'easeInCubic'
+  'easeOutCubic'
+  'easeInOutCubic'
+  'easeInQuart'
+  'easeOutQuart'
+  'easeInOutQuart'
+  'easeInQuint'
+  'easeOutQuint'
+  easeInOutQuint'
+
+duration: (optional) The duration of the slide animation in milliseconds. Default is 700ms.
+
+expanded: (optional) If set to true, the content will be initially shown. If set to false, the content will be initially hidden. Default is false.
+
+callBack: (optional) A callback function that will be called after the slide animation is completed.
 
 ```
 
 
-#### Sample style
+### API Reference
 
-```css
-.content-splitter *
-{
-    box-sizing: border-box;
-    user-select: none;
+##### SlideToggle
 
-}
-.content-splitter
-{
-    width:1200px;
-    max-width:100%;
-    margin: auto;
-    position: relative;
-}
-.content-splitter-main
-{
-    position: relative;
-    z-index: 1;
-}
-.content-splitter img{
-    width: 100%;
-    display: block;
+A React component that handles slide animations for showing and hiding content.
+```txt
 
+getTotalHeightWithMargins(element: HTMLElement): number 
 
-}
-.content-splitter-layer{
+```
 
-    z-index: 2;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: auto;
-    height: 100%;
-    overflow: hidden;
-}
-.content-splitter-layer img{
-    position: absolute;
-    height: 100%;
-    width: auto;
-    left: 0;
-    position: absolute;
-    top: 0;
+A utility function to calculate the total height of an element, considering its height and top and bottom margins.
 
-}
-.splitter-divider
-{
-    position: absolute;
-    top: 0;
-    height: 100%;
-    background-color: #fff;
-    width: 3px;
-    transform: translateX(-50%);
-    display: block;
-    z-index: 3;
-}
-.splitter-divider span{
-    display: block;
-    width:50px;
-    height: 50px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-    background-color: #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    
-}
+#### Example with Custom Easing and Duration
 
+```js
+import React from 'react';
+import { SlideToggle } from 'react-smooth-slide-toggle';
 
-.splitter-divider span::before
-{
-    
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translate(0,-50%);
-    left: 12px;
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-right: 10px solid #000;
-    border-bottom: 5px solid transparent;
-}
+const App = () => {
+  return (
+    <SlideToggle
+      trigger={<button>Toggle Content</button>}
+      easing="easeOutQuad"
+      duration={1000}
+      expanded={true}
+    >
+      <div>
+        <p>This content will slide in and out with a custom easing and duration.</p>
+      </div>
+    </SlideToggle>
+  );
+};
 
-
-.splitter-divider span::after
-{
-    content: '';
-    display: block;
-    position: absolute;
-    top: 50%;
-    transform: translate(0,-50%);
-    right: 10px;
-    width: 0;
-    height: 0;
-    border-top: 5px solid transparent;
-    border-left: 10px solid #000;
-    border-bottom: 5px solid transparent;
-}
-
+export default App;
 
 ```
 ## Contribution
